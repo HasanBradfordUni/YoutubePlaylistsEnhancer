@@ -32,9 +32,9 @@ function execute() {
 }
 
 // Make sure to call loadClient function when the page is loaded
-gapi.load("client:auth2", function() {
+/*gapi.load("client:auth2", function() {
   gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
-});
+});*/
 
 // Call execute function to make an API call
 function getResults() {
