@@ -11,7 +11,7 @@ window.onLoadCallback = function() {
 }
 
 function loadClient() {
-  gapi.client.setApiKey("YOUR_API_KEY");
+  gapi.client.setApiKey("AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0");
   return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
     .then(function() { console.log("GAPI client loaded for API"); },
           function(err) { console.error("Error loading GAPI client for API", err); });
