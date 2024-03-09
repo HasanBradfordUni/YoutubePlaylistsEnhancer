@@ -1,4 +1,5 @@
 window.onLoadCallback = function() {
+  console.log("is thiis working?")
   gapi.load('client:auth2', function() {
     // Initialize the Google API client with your API key and the APIs you want to use.
     gapi.client.init({
@@ -11,10 +12,19 @@ window.onLoadCallback = function() {
 }
 
 function loadClient() {
-  gapi.client.setApiKey("AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0");
-  return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+  //gapi.client.setApiKey("AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0");
+  /*return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
     .then(function() { console.log("GAPI client loaded for API"); },
-          function(err) { console.error("Error loading GAPI client for API", err); });
+          function(err) { console.error("Error loading GAPI client for API", err); });*/
+  gapi.load('client:auth2', function() {
+    // Initialize the Google API client with your API key and the APIs you want to use.
+    gapi.client.init({
+      'apiKey': 'AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0',
+      // Your API key will be automatically added to the Discovery Document URLs.
+      'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
+      // After the library is loaded and initialized, you can make API calls.
+    });
+  });
 }
 
 // Make sure the client is loaded and sign-in is complete before calling this method.
