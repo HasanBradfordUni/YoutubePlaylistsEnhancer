@@ -1,53 +1,52 @@
-import { auth } from 'google/colab';
-import { build } from 'googleapiclient/discovery';
-import * as re from 're';
-
-var _pj;
-
-function _pj_snippets(container) {
-  function in_es6(left, right) {
-    if (right instanceof Array || typeof right === "string") {
-      return right.indexOf(left) > -1;
-    } else {
-      if (right instanceof Map || right instanceof Set || right instanceof WeakMap || right instanceof WeakSet) {
-        return right.has(left);
-      } else {
-        return left in right;
-      }
-    }
-  }
-
-  container["in_es6"] = in_es6;
-  return container;
+window.onLoadCallback = function() {
+  gapi.load('client:auth2', function() {
+    // Initialize the Google API client with your API key and the APIs you want to use.
+    gapi.client.init({
+      'apiKey': 'AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0',
+      // Your API key will be automatically added to the Discovery Document URLs.
+      'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
+      // After the library is loaded and initialized, you can make API calls.
+    });
+  });
 }
 
-_pj = {};
+function loadClient() {
+  gapi.client.setApiKey("YOUR_API_KEY");
+  return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+    .then(function() { console.log("GAPI client loaded for API"); },
+          function(err) { console.error("Error loading GAPI client for API", err); });
+}
 
-_pj_snippets(_pj);
-/*This is a program that will add additional functionality to Youtube playlists.
-The first feature will be a playlists search (search for videos in a playlist).
-The second feature will be adding videos directly to a playlist from the playlist screen.
-More features coming soon...*/
+// Make sure the client is loaded and sign-in is complete before calling this method.
+function execute() {
+  return gapi.client.youtube.playlistItems.list({
+    "part": "snippet,contentDetails",
+    "maxResults": 25,
+    "playlistId": getPlaylistID()
+  })
+  .then(function(response) {
+      // Handle the results here (response.result has the parsed body).
+      console.log("Response", response);
+    },
+    function(err) { console.error("Execute error", err); });
+}
 
+// Make sure to call loadClient function when the page is loaded
+gapi.load("client:auth2", function() {
+  gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
+});
 
-class YTPlaylistsEnhancer {
-  constructor() {
-    var PROJECT_ID, api_key;
-    PROJECT_ID = "ytplaylistsenhancer";
-    auth.authenticate_user({
-      "project_id": PROJECT_ID
-    });
-    api_key = "AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0";
-    this.youtube = build("youtube", "v3", {
-      "developerKey": api_key
-    });
-  }
+// Call execute function to make an API call
+function getResults() {
+  loadClient();
+  execute();
+}
 
-  getURL() {}
+function getURL() {return window.location.href}
 
-  getPlayListItems() {
-    var match, next_page_token, pl_request, pl_response, playList_ID, playlist_id, playlist_url, videos;
-    playlist_url = this.getURL();
+function getPlaylistID() {
+  var match, playList_ID, playlist_url;
+    playlist_url = getURL();
     match = re.search("list=([a-zA-Z0-9_-]+)", playlist_url);
 
     if (match) {
@@ -56,6 +55,11 @@ class YTPlaylistsEnhancer {
     } else {
       console.log("Could not extract playlist ID.");
     }
+    return playList_ID
+}
+
+  /*getPlayListItems() {
+    
 
     playlist_id = playList_ID;
     videos = [];
@@ -120,6 +124,4 @@ class YTPlaylistsEnhancer {
       console.log(count.toString() + ". " + vid);
       count += 1;
     }
-  }
-
-}
+  }*/
