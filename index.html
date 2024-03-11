@@ -11,7 +11,7 @@
   <script>
     function getPlaylistID() {
       var match, playList_ID, playlist_url;
-      let playlistUrl = "Your playlist URL here";
+      let playlistUrl = "https://www.youtube.com/playlist?list=PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3";
       let regex = /list=([a-zA-Z0-9_-]+)/;
       match = playlistUrl.match(regex);
 
@@ -28,9 +28,9 @@
 const apiKey = 'AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0';
 
 function fetchPlaylistVideos(playlistId, pageToken) {
-  let url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}';
+  let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
   if (pageToken) {
-    url += '&pageToken=${pageToken}';
+    url += `&pageToken=${pageToken}`;
   }
 
   fetch(url)
