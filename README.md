@@ -6,9 +6,9 @@
 
 ### Aditional Functionality is as follows:
 
-- Playlist Search
-- Directly Add
-- Duration Details
+- [Playlist Search](https://github.com/HasanBradfordUni/YoutubePlaylistsEnhancer#playlist-search-)
+- [Directly Add](https://github.com/HasanBradfordUni/YoutubePlaylistsEnhancer#directly-add-)
+- [Duration Details](https://github.com/HasanBradfordUni/YoutubePlaylistsEnhancer#duration-details-)
 
 <hr>
 
