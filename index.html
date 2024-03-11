@@ -1,61 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Has Youtube Playlists Enhancer</title>
-    <meta charset="utf-8" />
-  </head>
-  <body>
-    <p>Has Youtube Playlists Enhancer</p>
+
+<head>
+  <title>Has Youtube Playlists Enhancer</title>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <p>Has Youtube Playlists Enhancer</p>
   <button id="fetch-videos">Fetch Playlist Videos</button>
 
   <script>
     function getPlaylistID() {
       var match, playList_ID, playlist_url;
-      let playlistUrl = "https://www.youtube.com/playlist?list=PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3";
+      playlist_url = "https://www.youtube.com/playlist?list=PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3";
+
       let regex = /list=([a-zA-Z0-9_-]+)/;
-      match = playlistUrl.match(regex);
+      match = playlist_url.match(regex);
 
       if (match) {
-        playListID = match[1];
-        console.log("Playlist ID:", playListID);
+        playList_ID = match[1];
+        console.log("Playlist ID:", playList_ID);
       } else {
         console.log("Could not extract playlist ID.");
       }
-      return playList_ID
+      return playList_ID;
     }
 
+
     // Replace 'YOUR_API_KEY' with your actual API key
-const apiKey = 'AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0';
+    const apiKey = 'AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0';
 
-function fetchPlaylistVideos(playlistId, pageToken) {
-  let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
-  if (pageToken) {
-    url += `&pageToken=${pageToken}`;
-  }
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      // Process the data.items array
-      data.items.forEach(item => {
-        console.log(item.snippet.title); // Log the title of each video
-      });
-
-      // Check if there are more pages
-      if (data.nextPageToken) {
-        fetchPlaylistVideos(playlistId, data.nextPageToken);
+    function fetchPlaylistVideos(playlistId, pageToken) {
+      let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
+      if (pageToken) {
+        url += `&pageToken=${pageToken}`;
       }
-    })
-    .catch(error => console.error('Error fetching data: ', error));
-}
 
-    document.getElementById('fetch-videos').addEventListener('click', function() {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Process the data.items array
+          data.items.forEach(item => {
+            console.log(item.snippet.title); // Log the title of each video
+          });
+
+          // Check if there are more pages
+          if (data.nextPageToken) {
+            fetchPlaylistVideos(playlistId, data.nextPageToken);
+          }
+        })
+        .catch(error => console.error('Error fetching data: ', error));
+    }
+
+    document.getElementById('fetch-videos').addEventListener('click', function () {
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
       fetchPlaylistVideos(playlistId);
     });
   </script>
 </body>
+
 </html>
 
-  </body>
+</body>
+
 </html>
