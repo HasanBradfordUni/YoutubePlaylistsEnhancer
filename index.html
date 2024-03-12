@@ -31,31 +31,33 @@
     // Replace 'YOUR_API_KEY' with your actual API key
     const apiKey = 'AIzaSyBirpEydenGZDoSY4ED0lXGmD0F57y6C9o';
 
-    function fetchPlaylistVideos(playlistId, pageToken) {
+    function fetchPlaylistVideos(playlistId, pageToken, videos, index) {
       let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
       if (pageToken) {
         url += `&pageToken=${pageToken}`;
       }
-
       fetch(url)
         .then(response => response.json())
         .then(data => {
           // Process the data.items array
           data.items.forEach(item => {
             console.log(item.snippet.title); // Log the title of each video
+            videos[index] = item.snippet.title;
+            index += 1;
           });
 
           // Check if there are more pages
           if (data.nextPageToken) {
-            fetchPlaylistVideos(playlistId, data.nextPageToken);
+            videos, index = fetchPlaylistVideos(playlistId, data.nextPageToken, videos, index);
           }
         })
         .catch(error => console.error('Error fetching data: ', error));
+      return videos, index
     }
 
     document.getElementById('fetch-videos').addEventListener('click', function () {
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
-      fetchPlaylistVideos(playlistId);
+      videos, index = fetchPlaylistVideos(playlistId, videos, index);
     });
   </script>
 </body>
