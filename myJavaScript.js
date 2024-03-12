@@ -46,10 +46,3 @@ async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
     return videos; // Return the videos fetched so far in case of error
   }
 }
-
-async function getAllVideos() {
-  var playlistId = getPlaylistID(); // Replace with your actual playlist ID
-  const allVideos = await fetchPlaylistVideos(playlistId, '', []);
-  console.log(allVideos); // This will log all the videos from the playlist
-  document.getElementById('videosList').innerHTML = allVideos;
-}

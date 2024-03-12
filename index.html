@@ -13,6 +13,15 @@
   <input type="text" name="urlInput" id="urlInput"><br><br>
   <button type="button" onclick="getAllVideos()">Display Videos</button>
   <p id="videosList">Videos will be displayed here</p>
+
+  <script>
+    async function getAllVideos() {
+      var playlistId = getPlaylistID(); // Replace with your actual playlist ID
+      const allVideos = await fetchPlaylistVideos(playlistId, '', []);
+      console.log(allVideos); // This will log all the videos from the playlist
+      document.getElementById('videosList').innerHTML = allVideos;
+    }
+  </script>
 </body>
 
 </html>
