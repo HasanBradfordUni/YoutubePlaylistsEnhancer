@@ -47,7 +47,7 @@
             videos[index] = item.snippet.title;
             index += 1;
           });
-
+          console.log(videos);
           // Check if there are more pages
           if (data.nextPageToken) {
             videos, index = fetchPlaylistVideos(playlistId, data.nextPageToken, videos, index);
@@ -62,15 +62,12 @@
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
       videos = []; var index = 0;
       videos, index = fetchPlaylistVideos(playlistId, videos, index);
-      console.log(videos);
       videosFetched = true;
     });
 
     function displayVideos() {
-      console.log("Videos fetched is: "+videosFetched);
       if (videosFetched) {
         console.log("Videos fetch successfull");
-        console.log(videos);
         document.getElementById('videosList').innerHTML = videos;
       }
     }
