@@ -9,6 +9,7 @@
 <body>
   <p>Has Youtube Playlists Enhancer</p>
   <button id="fetch-videos">Fetch Playlist Videos</button>
+  <button type="button" onclick="displayVideos">Display Videos</button>
   <p id="videoslist"></p>
 
   <script>
@@ -59,16 +60,16 @@
     var videos, videosFetched;
     document.getElementById('fetch-videos').addEventListener('click', function () {
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
-      var videos = []; var index = 0; 
+      var videos = []; var index = 0;
       videos, index = fetchPlaylistVideos(playlistId, videos, index);
       videosFetched = true;
     });
-    while (true) {
-    if (videosFetched) {
-      document.getElementById('videosList').innerHTML = videos;
-      break;
+
+    function displayVideos() {
+      if (videosFetched) {
+        document.getElementById('videosList').innerHTML = videos;
+      }
     }
-  }
   </script>
 </body>
 
