@@ -63,9 +63,12 @@
       videos, index = fetchPlaylistVideos(playlistId, videos, index);
       videosFetched = true;
     });
+    while (true) {
     if (videosFetched) {
       document.getElementById('videosList').innerHTML = videos;
+      break;
     }
+  }
   </script>
 </body>
 
