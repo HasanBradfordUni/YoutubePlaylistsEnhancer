@@ -1,7 +1,7 @@
 # Has Youtube Playlists Enhancer
 
 ## Repository for Youtube plugin I'm making to give playlists additional functionality
-<img align="center" alt="Logo 280 by 280 Pixels" src="Images/Logo280x280.jpg">
+<div align="center"><img alt="Logo 280 by 280 Pixels" src="Images/Logo280x280.jpg"></div>
 
 <hr>
 
