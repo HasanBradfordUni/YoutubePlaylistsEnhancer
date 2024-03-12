@@ -48,7 +48,7 @@
 
           // Check if there are more pages
           if (data.nextPageToken) {
-            videos = fetchPlaylistVideos(playlistId, data.nextPageToken, videos;
+            videos = fetchPlaylistVideos(playlistId, data.nextPageToken, videos);
           }
         })
         .catch(error => console.error('Error fetching data: ', error));
