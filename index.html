@@ -34,29 +34,34 @@
     // Replace 'YOUR_API_KEY' with your actual API key
     const apiKey = 'AIzaSyBirpEydenGZDoSY4ED0lXGmD0F57y6C9o';
 
-    function fetchPlaylistVideos(playlistId, pageToken, videos) {
+    async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
       let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
       if (pageToken) {
         url += `&pageToken=${pageToken}`;
       }
-      videos = [];
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          // Process the data.items array
-          data.items.forEach(item => {
-            console.log(item.snippet.title); // Log the title of each video
-            videos.push(item.snippet.title);
-          });
-          console.log(videos);
-          // Check if there are more pages
-          if (data.nextPageToken) {
-            videos = fetchPlaylistVideos(playlistId, data.nextPageToken, videos);
-          }
-        })
-        .catch(error => console.error('Error fetching data: ', error));
-      return videos
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Process the data.items array
+        data.items.forEach(item => {
+          console.log(item.snippet.title); // Log the title of each video
+          videos.push(item.snippet.title);
+        });
+
+        // Check if there are more pages
+        if (data.nextPageToken) {
+          return fetchPlaylistVideos(playlistId, data.nextPageToken, videos);
+        } else {
+          return videos; // No more pages, return the final list of videos
+        }
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+        return videos; // Return the videos fetched so far in case of error
+      }
     }
+
 
     var videos, videosFetched;
     document.getElementById('fetch-videos').addEventListener('click', function () {
