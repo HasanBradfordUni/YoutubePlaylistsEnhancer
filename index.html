@@ -9,68 +9,10 @@
 
 <body>
   <h1>Has Youtube Playlists Enhancer</h1>
-  <label>Playlist URL</label>
-  <input type="text" name="urlInput" id="urlInput"><br>
+  <label>Playlist URL:</label>
+  <input type="text" name="urlInput" id="urlInput"><br><br>
   <button type="button" onclick="getAllVideos()">Display Videos</button>
   <p id="videosList">Videos will be displayed here</p>
-
-  <script>
-    function getPlaylistID() {
-      var match, playList_ID, playlist_url;
-      playlist_url = document.getElementById("urlInput").value;
-
-      let regex = /list=([a-zA-Z0-9_-]+)/;
-      match = playlist_url.match(regex);
-
-      if (match) {
-        playList_ID = match[1];
-        console.log("Playlist ID:", playList_ID);
-      } else {
-        console.log("Could not extract playlist ID.");
-        document.getElementById('videosList').innerHTML = "Could not extract playlist ID.";
-      }
-      return playList_ID;
-    }
-
-
-    // Replace 'YOUR_API_KEY' with your actual API key
-    const apiKey = 'AIzaSyBirpEydenGZDoSY4ED0lXGmD0F57y6C9o';
-
-    async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
-      let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
-      if (pageToken) {
-        url += `&pageToken=${pageToken}`;
-      }
-
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        // Process the data.items array
-        data.items.forEach(item => {
-          console.log(item.snippet.title); // Log the title of each video
-          videos.push(item.snippet.title);
-        });
-
-        // Check if there are more pages
-        if (data.nextPageToken) {
-          return fetchPlaylistVideos(playlistId, data.nextPageToken, videos);
-        } else {
-          return videos; // No more pages, return the final list of videos
-        }
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-        return videos; // Return the videos fetched so far in case of error
-      }
-    }
-
-    async function getAllVideos() {
-      var playlistId = getPlaylistID(); // Replace with your actual playlist ID
-      const allVideos = await fetchPlaylistVideos(playlistId, '', []);
-      console.log(allVideos); // This will log all the videos from the playlist
-      document.getElementById('videosList').innerHTML = allVideos;
-    }
-  </script>
 </body>
 
 </html>

@@ -1,137 +1,55 @@
-window.onLoadCallback = function() {
-  console.log("is thiis working?")
-  gapi.load('client:auth2', function() {
-    // Initialize the Google API client with your API key and the APIs you want to use.
-    gapi.client.init({
-      'apiKey': 'AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0',
-      // Your API key will be automatically added to the Discovery Document URLs.
-      'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
-      // After the library is loaded and initialized, you can make API calls.
-    });
-  });
-}
-
-function loadClient() {
-  //gapi.client.setApiKey("AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0");
-  /*return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
-    .then(function() { console.log("GAPI client loaded for API"); },
-          function(err) { console.error("Error loading GAPI client for API", err); });*/
-  gapi.load('client:auth2', function() {
-    // Initialize the Google API client with your API key and the APIs you want to use.
-    gapi.client.init({
-      'apiKey': 'AIzaSyDwM1s5KQyEpeeRcyeSU7g3KmjxgmSAYj0',
-      // Your API key will be automatically added to the Discovery Document URLs.
-      'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
-      // After the library is loaded and initialized, you can make API calls.
-    });
-  });
-}
-
-// Make sure the client is loaded and sign-in is complete before calling this method.
-function execute() {
-  return gapi.client.youtube.playlistItems.list({
-    "part": "snippet,contentDetails",
-    "maxResults": 25,
-    "playlistId": getPlaylistID()
-  })
-  .then(function(response) {
-      // Handle the results here (response.result has the parsed body).
-      console.log("Response", response);
-    },
-    function(err) { console.error("Execute error", err); });
-}
-
-// Make sure to call loadClient function when the page is loaded
-/*gapi.load("client:auth2", function() {
-  gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
-});*/
-
-// Call execute function to make an API call
-function getResults() {
-  loadClient();
-  execute();
-}
-
-function getURL() {return window.location.href}
-
 function getPlaylistID() {
   var match, playList_ID, playlist_url;
-    playlist_url = getURL();
-    match = re.search("list=([a-zA-Z0-9_-]+)", playlist_url);
+  playlist_url = document.getElementById("urlInput").value;
 
-    if (match) {
-      playList_ID = match.group(1);
-      console.log("Playlist ID:", playList_ID);
-    } else {
-      console.log("Could not extract playlist ID.");
-    }
-    return playList_ID
+  let regex = /list=([a-zA-Z0-9_-]+)/;
+  match = playlist_url.match(regex);
+
+  if (match) {
+    playList_ID = match[1];
+    console.log("Playlist ID:", playList_ID);
+  } else {
+    console.log("Could not extract playlist ID.");
+    document.getElementById('videosList').innerHTML = "Could not extract playlist ID.";
+  }
+  return playList_ID;
 }
 
-  /*getPlayListItems() {
-    
 
-    playlist_id = playList_ID;
-    videos = [];
-    next_page_token = null;
+// Replace 'YOUR_API_KEY' with your actual API key
+const apiKey = 'AIzaSyBirpEydenGZDoSY4ED0lXGmD0F57y6C9o';
 
-    while (true) {
-      pl_request = youtube.playlistItems().list({
-        "part": "snippet",
-        "playlistId": playlist_id,
-        "maxResults": 50,
-        "pageToken": next_page_token
-      });
-      pl_response = pl_request.execute();
-
-      videos += function () {
-        var _pj_a = [],
-            _pj_b = pl_response["items"];
-
-        for (var _pj_c = 0, _pj_d = _pj_b.length; _pj_c < _pj_d; _pj_c += 1) {
-          var item = _pj_b[_pj_c];
-
-          _pj_a.push(item["snippet"]["title"]);
-        }
-
-        return _pj_a;
-      }.call(this);
-
-      next_page_token = pl_response.get("nextPageToken");
-
-      if (!next_page_token) {
-        break;
-      }
-    }
-
-    return videos;
+async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
+  let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
+  if (pageToken) {
+    url += `&pageToken=${pageToken}`;
   }
 
-  search_substring(videos, query) {
-    var results;
-    results = [];
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
 
-    for (var video, _pj_c = 0, _pj_a = videos, _pj_b = _pj_a.length; _pj_c < _pj_b; _pj_c += 1) {
-      video = _pj_a[_pj_c];
+    // Process the data.items array
+    data.items.forEach(item => {
+      console.log(item.snippet.title); // Log the title of each video
+      videos.push(item.snippet.title);
+    });
 
-      if (_pj.in_es6(query.lower(), video.lower())) {
-        results.append(video);
-      }
+    // Check if there are more pages
+    if (data.nextPageToken) {
+      return fetchPlaylistVideos(playlistId, data.nextPageToken, videos);
+    } else {
+      return videos; // No more pages, return the final list of videos
     }
-
-    return results;
+  } catch (error) {
+    console.error('Error fetching data: ', error);
+    return videos; // Return the videos fetched so far in case of error
   }
+}
 
-  getResults() {
-    var count, queryVideos, videoQuery, videos;
-    videoQuery = input("Enter a search term for a video in the playlist: ");
-    videos = this.getPlayListItems();
-    queryVideos = this.search_substring(videos, videoQuery);
-    count = 1;
-
-    for (var vid, _pj_c = 0, _pj_a = queryVideos, _pj_b = _pj_a.length; _pj_c < _pj_b; _pj_c += 1) {
-      vid = _pj_a[_pj_c];
-      console.log(count.toString() + ". " + vid);
-      count += 1;
-    }
-  }*/
+async function getAllVideos() {
+  var playlistId = getPlaylistID(); // Replace with your actual playlist ID
+  const allVideos = await fetchPlaylistVideos(playlistId, '', []);
+  console.log(allVideos); // This will log all the videos from the playlist
+  document.getElementById('videosList').innerHTML = allVideos;
+}
