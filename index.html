@@ -9,6 +9,7 @@
 <body>
   <p>Has Youtube Playlists Enhancer</p>
   <button id="fetch-videos">Fetch Playlist Videos</button>
+  <p id="videoslist"></p>
 
   <script>
     function getPlaylistID() {
@@ -59,6 +60,7 @@
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
       const videos = []; var index = 0; 
       videos, index = fetchPlaylistVideos(playlistId, videos, index);
+      document.getElementById("videosList").innerHTML = videos
     });
   </script>
 </body>
