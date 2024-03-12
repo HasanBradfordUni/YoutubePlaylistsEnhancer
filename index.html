@@ -32,7 +32,7 @@
     // Replace 'YOUR_API_KEY' with your actual API key
     const apiKey = 'AIzaSyBirpEydenGZDoSY4ED0lXGmD0F57y6C9o';
 
-    function fetchPlaylistVideos(playlistId, pageToken, videos, index) {
+    function fetchPlaylistVideos(playlistId, pageToken, callback) {
       var videos = [];
       let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
       if (pageToken) {
