@@ -57,6 +57,7 @@
 
     document.getElementById('fetch-videos').addEventListener('click', function () {
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
+      const videos = []; var index = 0; 
       videos, index = fetchPlaylistVideos(playlistId, videos, index);
     });
   </script>
