@@ -24,6 +24,6 @@
 <hr>
 
 ## Duration Details <br>
-### Allows the playlist to display the total duration and projected time of finishing 
+### Allows the playlist to display the total duration and how many videos are counted in this sum
 For Duration Details see [this source code](https://github.com/nrednav/youtube-playlist-duration-calculator) 
 <hr>
