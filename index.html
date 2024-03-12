@@ -17,7 +17,7 @@
   <script>
     function getPlaylistID() {
       var match, playList_ID, playlist_url;
-      playlist_url = "https://www.youtube.com/playlist?list=PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3";
+      playlist_url = document.getElementById("urlInput").value;
 
       let regex = /list=([a-zA-Z0-9_-]+)/;
       match = playlist_url.match(regex);
@@ -27,6 +27,7 @@
         console.log("Playlist ID:", playList_ID);
       } else {
         console.log("Could not extract playlist ID.");
+        document.getElementById('videosList').innerHTML = "Could not extract playlist ID.";
       }
       return playList_ID;
     }
