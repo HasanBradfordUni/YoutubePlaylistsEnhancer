@@ -55,12 +55,17 @@
       return videos, index
     }
     var videos;
+    var videosFetched;
     document.getElementById('fetch-videos').addEventListener('click', function () {
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
       videos = []; var index = 0; 
       videos = fetchPlaylistVideos(playlistId, videos);
+      videosFetched = true;
     });
-    document.getElementById('videosList').innerHTML = videos;
+    if (videosFetched) {
+      document.getElementById('videosList').innerHTML = videos;
+    }
+    
   </script>
 </body>
 
