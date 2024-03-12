@@ -10,7 +10,7 @@
 <body>
   <h1>Has Youtube Playlists Enhancer</h1>
   <button id="fetch-videos">Fetch Playlist Videos</button>
-  <button type="button" onclick="displayVideos()">Display Videos</button>
+  <button type="button" onclick="getAllVideos()">Display Videos</button>
   <p id="videosList">Videos will be displayed here</p>
 
   <script>
@@ -62,20 +62,11 @@
       }
     }
 
-
-    var videos, videosFetched;
-    document.getElementById('fetch-videos').addEventListener('click', function () {
+    async function getAllVideos() {
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
-      videos = []; var index = 0;
-      videos = fetchPlaylistVideos(playlistId, videos);
-      videosFetched = true;
-    });
-
-    function displayVideos() {
-      if (videosFetched) {
-        console.log("Videos fetch successfull");
-        document.getElementById('videosList').innerHTML = videos;
-      }
+      const allVideos = await fetchPlaylistVideos(playlistId, '', []);
+      console.log(allVideos); // This will log all the videos from the playlist
+      document.getElementById('videosList').innerHTML = allVideos;
     }
   </script>
 </body>
