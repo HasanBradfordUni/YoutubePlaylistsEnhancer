@@ -33,6 +33,7 @@
     const apiKey = 'AIzaSyBirpEydenGZDoSY4ED0lXGmD0F57y6C9o';
 
     function fetchPlaylistVideos(playlistId, pageToken, videos, index) {
+      var videos = [];
       let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
       if (pageToken) {
         url += `&pageToken=${pageToken}`;
@@ -43,26 +44,35 @@
           // Process the data.items array
           data.items.forEach(item => {
             console.log(item.snippet.title); // Log the title of each video
-            videos[index] = item.snippet.title;
-            index += 1;
+            videos.push(item); // Add the video item to the videos array
           });
 
           // Check if there are more pages
           if (data.nextPageToken) {
-            videos, index = fetchPlaylistVideos(playlistId, data.nextPageToken, videos, index);
+            fetchPlaylistVideos(playlistId, data.nextPageToken, callback);
+          } else {
+            // If no more pages, call the callback function
+            callback(videos);
           }
         })
-        .catch(error => console.error('Error fetching data: ', error));
-      return videos, index
+        .catch(error => {
+          console.error('Error fetching data: ', error);
+          callback([]); // Call the callback with an empty array in case of error
+        });
     }
 
     document.getElementById('fetch-videos').addEventListener('click', function () {
-      var playlistId = getPlaylistID(); // Replace with your actual playlist ID
-      var videos = []; var index = 0; 
-      videos, index = fetchPlaylistVideos(playlistId, videos, index);
-     
+      var playlistId = getPlaylistID();
+
+      // Define a callback function to update the UI
+      var updateUI = function (videos) {
+        document.getElementById('videosList').innerHTML = videos.map(video => video.snippet.title).join('<br>');
+      };
+
+      // Pass the callback function to fetchPlaylistVideos
+      fetchPlaylistVideos(playlistId, updateUI);
     });
-    document.getElementById('videosList').innerHTML = videos;
+
   </script>
 </body>
 
