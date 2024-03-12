@@ -66,8 +66,9 @@
     });
 
     function displayVideos() {
+      console.log("Videos fetched is: "+videosFetched);
       if (videosFetched) {
-        console.log("Videos fetch successfull")
+        console.log("Videos fetch successfull");
         document.getElementById('videosList').innerHTML = videos;
       }
     }
