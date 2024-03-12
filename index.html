@@ -39,12 +39,18 @@
         url += `&pageToken=${pageToken}`;
       }
       fetch(url)
-        .then(response => response.json())
+      .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
         .then(data => {
           // Process the data.items array
+          var videos = data.items.map(item => item.snippet.title);
+          callback(videos); // Call the callback function with the titles
           data.items.forEach(item => {
             console.log(item.snippet.title); // Log the title of each video
-            videos.push(item); // Add the video item to the videos array
           });
 
           // Check if there are more pages
@@ -62,17 +68,12 @@
     }
 
     document.getElementById('fetch-videos').addEventListener('click', function () {
-      var playlistId = getPlaylistID();
-
-      // Define a callback function to update the UI
-      var updateUI = function (videos) {
-        document.getElementById('videosList').innerHTML = videos.map(video => video.snippet.title).join('<br>');
-      };
-
-      // Pass the callback function to fetchPlaylistVideos
-      fetchPlaylistVideos(playlistId, updateUI);
-    });
-
+  var playlistId = getPlaylistID(); // Replace with your actual playlist ID
+  fetchPlaylistVideos(playlistId, function(videos) {
+    // Update your UI here with the videos
+    document.getElementById('videosList').innerHTML = videos.map(video => video.snippet.title).join('<br>');
+  });
+});
   </script>
 </body>
 
