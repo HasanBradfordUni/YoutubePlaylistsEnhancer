@@ -60,7 +60,7 @@
     var videos, videosFetched;
     document.getElementById('fetch-videos').addEventListener('click', function () {
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
-      var videos = []; var index = 0;
+      videos = []; var index = 0;
       videos, index = fetchPlaylistVideos(playlistId, videos, index);
       videosFetched = true;
     });
