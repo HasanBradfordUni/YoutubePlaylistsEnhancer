@@ -43,7 +43,7 @@
   <script>
     async function searchVideos() {
       const videos = await getAllVideos();
-      var searchTerm = document.getElementById('searchInput');
+      var searchTerm = document.getElementById('searchInput').value;
       var paragraph = document.getElementById('videosList');
       // Filter the array
       var filteredArray = videos.filter(function (element) {
