@@ -19,7 +19,19 @@
       var playlistId = getPlaylistID(); // Replace with your actual playlist ID
       const allVideos = await fetchPlaylistVideos(playlistId, '', []);
       console.log(allVideos); // This will log all the videos from the playlist
-      document.getElementById('videosList').innerHTML = allVideos;
+      var paragraph = document.getElementById('videosList');
+
+      // Clear the paragraph content
+      paragraph.innerHTML = '';
+
+      // Iterate over the array and append each element to the paragraph
+      videos.forEach(function (element) {
+        // Create a text node for each element
+        var textNode = document.createTextNode(element + ' ');
+
+        // Append the text node to the paragraph
+        paragraph.appendChild(textNode);
+      });
     }
   </script>
 </body>
