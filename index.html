@@ -10,8 +10,11 @@
 <body>
   <h1>Has Youtube Playlists Enhancer</h1>
   <label>Playlist URL:</label>
-  <input type="text" name="urlInput" id="urlInput"><br><br>
+  <input type="text" name="urlInput" id="urlInput"><br>
+  <label>Search Playlist</label>
+  <input type="text" name="searchInput" id="searchInput"><br><br>
   <button type="button" onclick="getAllVideos()">Display Videos</button>
+  <button type="button" onclick="searchVideos()">Search Through Playlist</button>
   <p id="videosList">Videos will be displayed here</p>
 
   <script>
@@ -26,6 +29,34 @@
 
       // Iterate over the array and append each element to the paragraph
       allVideos.forEach(function (element) {
+        // Create a text node for each element
+        var textNode = document.createTextNode(element);
+
+        // Append the text node to the paragraph
+        paragraph.appendChild(textNode);
+        paragraph.appendChild(document.createElement('br'));
+      });
+      return allVideos;
+    }
+  </script>
+
+  <script>
+    async function searchVideos() {
+      const videos = await getAllVideos();
+      var searchTerm = document.getElementById('searchInput');
+      var paragraph = document.getElementById('videosList');
+      // Filter the array
+      var filteredArray = videos.filter(function (element) {
+        return element.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+      console.log("The filtered array is:");
+      console.log(filteredArray);
+      // Rewrite the paragraph content
+      paragraph.innerHTML = 'The search results are as follows:';
+      paragraph.appendChild(document.createElement('br'));
+
+      // Iterate over the array and append each element to the paragraph
+      filteredArray.forEach(function (element) {
         // Create a text node for each element
         var textNode = document.createTextNode(element);
 
