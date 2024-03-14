@@ -27,10 +27,10 @@
       // Iterate over the array and append each element to the paragraph
       allVideos.forEach(function (element) {
         // Create a text node for each element
-        var textNode = document.createTextNode(element + ' ');
+        var textNode = document.createTextNode(element + "<br>");
 
         // Append the text node to the paragraph
-        paragraph.appendChild(textNode+"<br>");
+        paragraph.appendChild(textNode);
       });
     }
   </script>
