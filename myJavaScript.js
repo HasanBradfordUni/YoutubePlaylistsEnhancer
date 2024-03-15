@@ -2,6 +2,10 @@ function getPlaylistID() {
   var match, playList_ID, playlist_url;
   playlist_url = document.getElementById("urlInput").value;
 
+  if (playlist_url == null) {
+    var playlist_url = document.getElementById('iframeId').contentWindow.location.href;
+  } 
+
   let regex = /list=([a-zA-Z0-9_-]+)/;
   match = playlist_url.match(regex);
 

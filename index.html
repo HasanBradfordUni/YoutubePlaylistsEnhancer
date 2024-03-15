@@ -9,12 +9,15 @@
 
 <body>
   <h1>Has Youtube Playlists Enhancer</h1>
+  <h3>You can enter in the playlist url below and the search term.</h3>
+  <h3>Alternatively you can navigate to the playlist using the Youtube frame below</h3>
   <label>Playlist URL:</label>
-  <input type="text" name="urlInput" id="urlInput"><br>
+  <input type="text" name="urlInput" id="urlInput"><br><br>
   <label>Search Playlist</label>
   <input type="text" name="searchInput" id="searchInput"><br><br>
   <button type="button" onclick="getAllVideos()">Display Videos</button>
   <button type="button" onclick="searchVideos()">Search Through Playlist</button>
+  <iframe src="https://www.youtube.com/" style="height: 80%; width: 80%;" id="iframeId"></iframe>
   <p id="videosList">Videos will be displayed here</p>
 
   <script>
