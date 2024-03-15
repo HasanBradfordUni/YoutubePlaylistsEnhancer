@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playlist Search</title>
+<style>
+  body { font-family: Arial, sans-serif; }
+  .search-container { text-align: center; padding: 20px; }
+  .results-container { margin-top: 20px; }
+  .playlist { border: 1px solid #ddd; margin: 10px; padding: 10px; }
+</style>
+</head>
+<body>
+
+<div class="search-container">
+  <h1>Search for YouTube Playlists</h1>
+  <input type="text" id="searchQuery" placeholder="Enter search term...">
+  <button onclick="searchPlaylists()">Search</button>
+</div>
+
+<div id="results" class="results-container">
+  <!-- Search results will be displayed here -->
+</div>
+
+<script>
+// Placeholder function for searching playlists
+function searchPlaylists() {
+  var searchTerm = document.getElementById('searchQuery').value;
+  // You would typically make an API call here to search for playlists
+  // For demonstration, we'll just log the search term
+  console.log('Searching for:', searchTerm);
+  
+  // Display a placeholder for search results
+  document.getElementById('results').innerHTML = '<div class="playlist">Search results for "' + searchTerm + '" will be displayed here.</div>';
+}
+</script>
+
+</body>
+</html>
