@@ -1,4 +1,6 @@
-import '/apiKey.js'
+// otherFile.js
+import { API_KEY } from './config';
+
 
 function getPlaylistID() {
   var match, playList_ID, playlist_url;
@@ -22,7 +24,7 @@ function getPlaylistID() {
 }
 
 try {
-  const apiKey = getApiKey();
+  const apiKey = API_KEY;
   console.log(apiKey);
 } catch (error) {console.error(error)}
 
