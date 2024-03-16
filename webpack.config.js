@@ -1,12 +1,8 @@
 // webpack.config.js
-const webpack = require('webpack');
+import { DefinePlugin } from 'webpack';
 
-module.exports = {
-  // ...
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
+export const plugins = [
+    new DefinePlugin({
+        'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
     })
-  ]
-  // ...
-};
+];
