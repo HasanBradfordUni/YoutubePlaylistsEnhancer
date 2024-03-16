@@ -1,9 +1,9 @@
-import { ProvidePlugin } from 'webpack';
+import { DefinePlugin } from 'webpack';
+import 'dotenv/config';
 
 export const plugins = [
-    // ... other plugins ...
-    new ProvidePlugin({
-        process: 'process/browser', // Provide a path to process/browser
-    }),
+    new DefinePlugin({
+        'process.env': JSON.stringify(process.env)
+    })
 ];
 
