@@ -42,7 +42,7 @@
 
   <script>
     async function displaySearchResults() {
-      const playlistResults = await searchPlaylists();
+      const playlistResults = await searchPlaylists('', []);
       
       var paragraph = document.getElementById('playlists');
 
