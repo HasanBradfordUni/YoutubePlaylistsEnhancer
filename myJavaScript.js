@@ -1,4 +1,5 @@
-/*require('dotenv').config();*/
+import dotenv from 'dotenv';
+dotenv.config();
 
 function getPlaylistID() {
   var match, playList_ID, playlist_url;
@@ -23,6 +24,7 @@ function getPlaylistID() {
 
 
 // Replace 'YOUR_API_KEY' with your actual API key
+
 const apiKey = process.env.API_KEY;
 try {console.log(apiKey)} catch (error) {console.error(error)}
 
