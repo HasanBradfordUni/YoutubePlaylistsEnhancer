@@ -56,7 +56,7 @@ async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
   }
 }
 
-async function searchPlaylists(pageToken = '', playlistResults = []) {
+async function searchPlaylists(pageToken, playlistResults) {
   var searchTerm = document.getElementById('searchQuery').value;
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchTerm}&type=playlist&key=${apiKey}`;
 
