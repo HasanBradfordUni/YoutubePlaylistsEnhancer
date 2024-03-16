@@ -22,9 +22,6 @@ function getPlaylistID() {
   return playList_ID;
 }
 
-
-// Replace 'YOUR_API_KEY' with your actual API key
-
 const apiKey = process.env.API_KEY;
 try {console.log(apiKey)} catch (error) {console.error(error)}
 
