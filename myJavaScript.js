@@ -26,7 +26,6 @@ function getPlaylistID() {
 const apiKey = process.env.API_KEY;
 try {console.log(apiKey)} catch (error) {console.error(error)}
 
-
 async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
   let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
   if (pageToken) {
