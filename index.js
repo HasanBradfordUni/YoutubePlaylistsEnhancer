@@ -1,5 +1,4 @@
-import '/dotenv/config';
-console.log(process.env);
+import '/apiKey.js'
 
 function getPlaylistID() {
   var match, playList_ID, playlist_url;
@@ -23,7 +22,7 @@ function getPlaylistID() {
 }
 
 try {
-  const apiKey = process.env.API_KEY;
+  const apiKey = getApiKey();
   console.log(apiKey);
 } catch (error) {console.error(error)}
 
