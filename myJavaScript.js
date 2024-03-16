@@ -1,4 +1,4 @@
-require('dotenv').config();
+/*require('dotenv').config();*/
 
 function getPlaylistID() {
   var match, playList_ID, playlist_url;
@@ -24,6 +24,8 @@ function getPlaylistID() {
 
 // Replace 'YOUR_API_KEY' with your actual API key
 const apiKey = process.env.API_KEY;
+try {console.log(apiKey)} catch (error) {console.error(error)}
+
 
 async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
   let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
