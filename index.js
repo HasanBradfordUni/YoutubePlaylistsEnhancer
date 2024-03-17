@@ -1,6 +1,4 @@
-// otherFile.js
 import { API_KEY } from './config.template.js';
-
 
 function getPlaylistID() {
   var match, playList_ID, playlist_url;
@@ -56,7 +54,7 @@ async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
   }
 }
 
-async function searchPlaylists(pageToken, playlistResults) {
+async function searchPlaylists(pageToken= '', playlistResults = []) {
   var searchTerm = document.getElementById('searchQuery').value;
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchTerm}&type=playlist&key=${apiKey}`;
 
@@ -68,6 +66,7 @@ async function searchPlaylists(pageToken, playlistResults) {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    
     // Process the data.items array
     data.items.forEach(item => {
       console.log(item.snippet); // Log the title of each video
