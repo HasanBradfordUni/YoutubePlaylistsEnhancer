@@ -1,3 +1,1 @@
-#!/bin/bash
-cp config.template.js config.js
-sed -i 's/YOUR_API_KEY_HERE/'"$ACTUAL_API_KEY"'/' config.js
+

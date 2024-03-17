@@ -1,5 +1,5 @@
 // otherFile.js
-import { API_KEY } from './config.js';
+import { API_KEY } from './config.template.js';
 
 
 function getPlaylistID() {
