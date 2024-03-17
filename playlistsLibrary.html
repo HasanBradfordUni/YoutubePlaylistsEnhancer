@@ -43,8 +43,9 @@
 
   <script>
     async function displaySearchResults() {
+      var searchTerm = document.getElementById('searchQuery').value;
       try {
-        const playlistResults = await searchPlaylists('', []);
+        const playlistResults = await searchPlaylists(searchTerm, '', []);
         console.log(playlistResults);
       } catch (error) {
         console.log(error)

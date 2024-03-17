@@ -53,8 +53,7 @@ async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
   }
 }
 
-async function searchPlaylists(pageToken= '', playlistResults = []) {
-  var searchTerm = document.getElementById('searchQuery').value;
+async function searchPlaylists(searchTerm, pageToken= '', playlistResults = []) {
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchTerm}&type=playlist&key=${apiKey}`;
 
   console.log('Searching for:', searchTerm);
@@ -74,7 +73,7 @@ async function searchPlaylists(pageToken= '', playlistResults = []) {
 
     // Check if there are more pages
     if (data.nextPageToken) {
-      return searchPlaylists(data.nextPageToken, playlistResults);
+      return searchPlaylists(searchTerm, data.nextPageToken, playlistResults);
     } else {
       return playlistResults; // No more pages, return the final list of playlist results
     }
