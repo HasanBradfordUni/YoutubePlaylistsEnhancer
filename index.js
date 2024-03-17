@@ -23,7 +23,6 @@ function getPlaylistID() {
 
 try {
   const apiKey = API_KEY;
-  console.log(apiKey);
 } catch (error) {console.log(error)}
 
 async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
@@ -66,7 +65,7 @@ async function searchPlaylists(pageToken= '', playlistResults = []) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    
+
     // Process the data.items array
     data.items.forEach(item => {
       console.log(item.snippet); // Log the title of each video
