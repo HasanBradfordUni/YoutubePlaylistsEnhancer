@@ -54,9 +54,6 @@ export async function fetchPlaylistVideos(playlistId, pageToken = '', videos = [
 }
 
 async function searchPlaylists(searchTerm, pageToken = '', playlistResults = []) {
-  try {
-    const apiKey = API_KEY;
-  } catch (error) { console.log(error) }
 
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchTerm}&type=playlist&key=${apiKey}`;
 
