@@ -22,6 +22,7 @@ export function getPlaylistID() {
 }
 
 const apiKey = API_KEY;
+const v = null;
 
 export async function fetchPlaylistVideos(playlistId, pageToken = '', videos = []) {
   let url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
