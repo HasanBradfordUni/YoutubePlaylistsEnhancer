@@ -1,4 +1,4 @@
-import { API_KEY } from './config.js';
+import { API_KEY } from './config.template.js';
 
 export function getPlaylistID() {
   var match, playList_ID, playlist_url;
