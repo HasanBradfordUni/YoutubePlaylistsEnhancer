@@ -108,3 +108,48 @@ export async function displaySearchResults() {
   });
 }
 
+export async function getAllVideos() {
+  var playlistId = getPlaylistID(); // Replace with your actual playlist ID
+  const allVideos = await fetchPlaylistVideos(playlistId, '', []);
+  console.log(allVideos); // This will log all the videos from the playlist
+  var paragraph = document.getElementById('videosList');
+
+  // Clear the paragraph content
+  paragraph.innerHTML = '';
+
+  // Iterate over the array and append each element to the paragraph
+  allVideos.forEach(function (element) {
+    // Create a text node for each element
+    var textNode = document.createTextNode(element);
+
+    // Append the text node to the paragraph
+    paragraph.appendChild(textNode);
+    paragraph.appendChild(document.createElement('br'));
+  });
+  return allVideos;
+}
+
+export async function searchVideos() {
+  const videos = await getAllVideos();
+  var searchTerm = document.getElementById('searchInput').value;
+  var paragraph = document.getElementById('videosList');
+  // Filter the array
+  var filteredArray = videos.filter(function (element) {
+    return element.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+  console.log("The filtered array is:");
+  console.log(filteredArray);
+  // Rewrite the paragraph content
+  paragraph.innerHTML = 'The search results are as follows:';
+  paragraph.appendChild(document.createElement('br'));
+
+  // Iterate over the array and append each element to the paragraph
+  filteredArray.forEach(function (element) {
+    // Create a text node for each element
+    var textNode = document.createTextNode(element);
+
+    // Append the text node to the paragraph
+    paragraph.appendChild(textNode);
+    paragraph.appendChild(document.createElement('br'));
+  });
+}
