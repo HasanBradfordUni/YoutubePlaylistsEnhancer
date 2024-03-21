@@ -8,6 +8,13 @@
 </head>
 
 <body>
+  <script type="module">
+    import { getAllVideos } from 'https://pythonprogrammertutorials.me/YoutubePlaylistsEnhancer/index.js';
+    import { searchVideos } from 'https://pythonprogrammertutorials.me/YoutubePlaylistsEnhancer/index.js';
+    window.displayVideos = getAllVideos();
+    window.searchVideos = searchVideos;
+  </script>
+  
   <h1>Has Youtube Playlists Enhancer</h1>
   <h3>You can enter in the playlist url below and the search term.</h3>
   <h3>Alternatively you can navigate to the playlist using the frame below</h3>
@@ -19,13 +26,6 @@
   <button type="button" onclick="searchVideos()">Search Through Playlist</button><br>
   <iframe src="playlistsLibrary.html" style="height: 80%; width: 80%;" id="iframeId"></iframe>
   <p id="videosList">Videos will be displayed here</p>
-
-  <script type="module">
-    import { getAllVideos } from 'https://pythonprogrammertutorials.me/YoutubePlaylistsEnhancer/index.js';
-    import { searchVideos } from 'https://pythonprogrammertutorials.me/YoutubePlaylistsEnhancer/index.js';
-    window.displayVideos = getAllVideos;
-    window.searchVideos = searchVideos;
-  </script>
 </body>
 
 </html>
